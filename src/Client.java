@@ -13,11 +13,24 @@ public class Client {
         ) {
             System.out.println("Who are you?");
             Scanner scanner = new Scanner(System.in);
-            String msg = scanner.nextLine();
+            String name = scanner.nextLine();
 
-            output.writeUTF(msg);
+            output.writeUTF(name);
             String receivedMsg = input.readUTF();
             System.out.println(receivedMsg);
+            String msg = "";
+            while (!msg.equals("bye")){
+                msg = scanner.nextLine();
+                output.writeUTF(msg);
+                if (msg.equals("exit") && name.equals("admin"))
+                    break;
+                if (msg.equals("bye"))
+                    break;
+                receivedMsg = input.readUTF();
+                System.out.println(receivedMsg);
+            }
+            input.close();
+            output.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
